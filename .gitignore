@@ -2,6 +2,8 @@
 
 # dependencies
 /node_modules
+/examples/web/node_modules
+/packages/core/node_modules
 /.pnp
 .pnp.*
 .yarn/*
@@ -9,6 +11,8 @@
 !.yarn/plugins
 !.yarn/releases
 !.yarn/versions
+/examples/web/.next
+/examples/web/out
 
 # testing
 /coverage
@@ -19,6 +23,8 @@
 
 # production
 /build
+/dist
+/packages/core/dist
 
 # misc
 .DS_Store

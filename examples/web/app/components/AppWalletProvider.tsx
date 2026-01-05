@@ -22,7 +22,7 @@ export default function AppWalletProvider({
   const endpoint = useMemo(() => clusterApiUrl(network), [network]);
   const wallets = useMemo(
     () => [
-      
+
       new UnsafeBurnerWalletAdapter(),
     ],
     [network]
