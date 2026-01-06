@@ -11,11 +11,13 @@
         "dev": "tsc -w"
     },
     "peerDependencies": {
-        "react": ">=18",
-        "@agent-protocol/core": "workspace:*"
+        "@agent-protocol/core": "workspace:*",
+        "react": ">=18"
     },
     "dependencies": {
-        "@agent-protocol/core": "workspace:*"
+        "@agent-protocol/core": "workspace:*",
+        "@solana/web3.js": "^1.98.4",
+        "@types/node": "^20.19.27"
     },
     "devDependencies": {
         "@types/react": "^18",

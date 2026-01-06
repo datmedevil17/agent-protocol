@@ -14,9 +14,11 @@ export interface ChatResponse {
 }
 
 export class AgentClient {
-    private baseUrl: string = "https://api.axiosiiitl.dev";
+    private baseUrl: string;
 
-    constructor(private apiKey: string) { }
+    constructor(private apiKey: string, baseUrl?: string) {
+        this.baseUrl = baseUrl || "https://api.axiosiiitl.dev";
+    }
 
     /**
      * Send a chat request to the Agent API.

@@ -1,17 +1,53 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { useAgent } from './useAgent';
 
+/**
+ * Props for the ChatWidget component.
+ */
 export interface ChatWidgetProps {
+    /** Title displayed in the header of the chat window. Default: "AI Agent" */
     title?: string;
-    themeColor?: string; // Hex code
+    /** Theme color for the header and user messages. Default: "#2563eb" (Blue) */
+    themeColor?: string;
+    /** The initial message shown when the chat opens. Default: "How can I help you today?" */
     initialMessage?: string;
-    logo?: string; // URL
+    /** URL for a logo image. */
+    logo?: string;
+    /** Position of the floating chat button. Default: "bottom-right" */
     position?: 'bottom-right' | 'bottom-left';
-    isOpen?: boolean; // Controlled state
+    /** 
+     * Controlled open state. If provided, you must manage visibility via onToggle.
+     * If undefined, the widget manages its own open/close state.
+     */
+    isOpen?: boolean;
+    /** Callback fired when the toggle button is clicked. */
     onToggle?: (isOpen: boolean) => void;
+    /** 
+     * Array of tool definitions to pass to the Agent. 
+     * Defaults to `ALL_TOOLS` from `@agent-protocol/core` if not provided.
+     */
     tools?: any[];
+    /**
+     * Map of tool names to their execution functions.
+     * Use this to provide the implementation for tools like `transferSOL`, `getBalance`, etc.
+     */
+    handlers?: Record<string, (args: any) => Promise<any>>;
 }
 
+/**
+ * A floating chat widget that connects to the Agent Protocol.
+ * 
+ * @example
+ * ```tsx
+ * // Basic usage with standard tools and custom handlers
+ * <ChatWidget 
+ *   title="My Agent"
+ *   handlers={{
+ *     transferSOL: async (args) => { ... }
+ *   }}
+ * />
+ * ```
+ */
 export const ChatWidget: React.FC<ChatWidgetProps> = ({
     title = "AI Agent",
     themeColor = "#2563eb",
@@ -19,9 +55,10 @@ export const ChatWidget: React.FC<ChatWidgetProps> = ({
     position = 'bottom-right',
     isOpen: controlledIsOpen,
     onToggle,
-    tools
+    tools,
+    handlers
 }) => {
-    const { messages, sendMessage, isLoading } = useAgent({ tools });
+    const { messages, sendMessage, isLoading, error } = useAgent({ tools, handlers });
     const [internalIsOpen, setInternalIsOpen] = useState(false);
     const [input, setInput] = useState("");
     const messagesEndRef = useRef<HTMLDivElement>(null);
@@ -137,6 +174,21 @@ export const ChatWidget: React.FC<ChatWidgetProps> = ({
                         {isLoading && (
                             <div style={{ alignSelf: 'flex-start', color: '#6b7280', fontSize: '12px', marginLeft: '8px' }}>
                                 Agent is thinking...
+                            </div>
+                        )}
+                        {error && (
+                            <div style={{
+                                alignSelf: 'center',
+                                color: '#ef4444',
+                                fontSize: '12px',
+                                padding: '8px',
+                                backgroundColor: '#fef2f2',
+                                borderRadius: '8px',
+                                border: '1px solid #fee2e2',
+                                width: '90%',
+                                textAlign: 'center'
+                            }}>
+                                Error: {error.message}
                             </div>
                         )}
                         <div ref={messagesEndRef} />

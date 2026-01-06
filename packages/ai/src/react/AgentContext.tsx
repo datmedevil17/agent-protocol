@@ -8,13 +8,16 @@ interface AgentContextType {
 const AgentContext = createContext<AgentContextType>({ client: null });
 
 interface AgentProviderProps {
+    /** The API Key (Session Key) obtained from your backend or the Agent Protocol dashboard. */
     apiKey: string;
+    /** The base URL of the Agent Protocol API. Defaults to the public API if not specified. */
+    baseUrl?: string;
     children: ReactNode;
 }
 
-export const AgentProvider: React.FC<AgentProviderProps> = ({ apiKey, children }) => {
+export const AgentProvider: React.FC<AgentProviderProps> = ({ apiKey, baseUrl, children }) => {
     // Memoize client to prevent recreation on every render
-    const client = React.useMemo(() => new AgentClient(apiKey), [apiKey]);
+    const client = React.useMemo(() => new AgentClient(apiKey, baseUrl), [apiKey, baseUrl]);
 
     return (
         <AgentContext.Provider value={{ client }}>
