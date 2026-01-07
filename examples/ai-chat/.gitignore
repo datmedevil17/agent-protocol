@@ -2,8 +2,6 @@
 
 # dependencies
 /node_modules
-/examples/web/node_modules
-/packages/core/node_modules
 /.pnp
 .pnp.*
 .yarn/*
@@ -11,16 +9,6 @@
 !.yarn/plugins
 !.yarn/releases
 !.yarn/versions
-/examples/web/.next
-/examples/web/out
-apps/api/node_modules
-examples/ai-chat/node_modules
-packages/ai/node_modules
-apps/ai/dist
-apps/api/dist
-examples/ai-chat/.next
-packages/ai/dist
-packages/core/dist
 
 # testing
 /coverage
@@ -31,8 +19,6 @@ packages/core/dist
 
 # production
 /build
-/dist
-/packages/core/dist
 
 # misc
 .DS_Store

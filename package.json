@@ -1,7 +1,6 @@
 {
     "name": "agent-protocol-monorepo",
     "version": "0.0.0",
-    "private": true,
     "scripts": {
         "dev": "pnpm run --filter web dev",
         "build": "pnpm -r build",
