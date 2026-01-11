@@ -2,6 +2,9 @@
 
 A modular system for AI Agents that can transact on Solana and Ethereum.
 
+<img width="1381" height="1203" alt="diagram-export-11-01-2026-17_38_54" src="https://github.com/user-attachments/assets/3c7fb251-9503-4a11-b8f6-0387648c693b" />
+
+
 ## 📂 Structure
 
 - **`packages/core`**: The Agent SDK (`@agent-protocol/core`). Contains all business logic, tools, and session management.
